@@ -12,7 +12,7 @@ import { Footer } from "./components/Footer";
 
 function App() {
   return (
-    <div className="bg-bgColor w-full h-screen overflow-hidden">
+    <div className="bg-bgColor w-full min-h-screen ">
       <BrowserRouter>
         <Navbar />
         <Routes>
