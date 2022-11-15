@@ -3,6 +3,9 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   mode: "jit",
   theme: {
+    minWidth: {
+      "1/3": "33%",
+    },
     extend: {
       colors: {
         primary: "#00040f",
@@ -17,14 +20,19 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
       },
       animation: {
-        fade: "fadeIn 7.2s ease-in-out",
+        fadeOut: "fadeOut 1s ease-in-out",
+        fadeIn: "fadeIn 1s ease-in-out",
       },
 
       // that is actual animation
       keyframes: (theme) => ({
-        fadeIn: {
+        fadeOut: {
           "0%": { opacity: 1 },
           "100%": { opacity: 0 },
+        },
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
         },
       }),
     },

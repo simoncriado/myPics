@@ -1,3 +1,4 @@
+/* Loader Styles. Added a new CSS file because the styles were too specific to be done with Tailwind CSS */
 .wrapper {
   width: 200px;
   height: 60px;

@@ -1,10 +1,14 @@
+//React
 import React from "react";
 
+// Redux
 import { useSelector } from "react-redux";
-import { selectPhotos } from "../features/search/searchSlice";
+import { selectImages } from "../features/search/searchSlice";
 
+// Component that gets a list of images and creates a card for each one. The list is coming after the user searches for images. If the user enters a search input I fetch based on that inupt.
+// If the user enters no input I fetch a random list of images.
 export const SearchedImg = ({ markAsFav }) => {
-  const imagesList = useSelector(selectPhotos);
+  const imagesList = useSelector(selectImages);
 
   return (
     <div className="flex flex-wrap justify-center items-center h-full mx-0 md:mx-8">
@@ -12,19 +16,19 @@ export const SearchedImg = ({ markAsFav }) => {
         return (
           <div
             key={img.id}
-            className="w-80 h-60 mx-6 my-6 relative overflow-hidden md:transition md:duration-500 md:hover:scale-125 hover:z-50 rounded shadow-md shadow-gray-600"
+            className="w-80 h-60 mx-6 my-6 relative overflow-hidden  rounded shadow-md shadow-gray-600"
           >
             <img
-              className="object-fill w-80 h-60 rounded transition duration-500 md:hover:scale-125 "
+              className="object-fill w-80 h-60 rounded "
               src={img.urls.full}
               alt={img.alt_description}
             />
             <svg
               id={img.id}
               onClick={() => {
-                markAsFav(img.id);
+                markAsFav(img.id, img);
               }}
-              className="w-8 h-8 text-red-600 absolute bottom-2 right-2 text-lg"
+              className="w-8 h-8 text-red-600 absolute bottom-2 right-2 text-lg hover:animate-bounce"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

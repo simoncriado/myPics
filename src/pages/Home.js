@@ -1,5 +1,7 @@
+// Components
 import { Slider } from "../components/Slider";
 
+// Home page which includes the image auto slider
 const Home = () => {
   return (
     <div className="container flex flex-col flex-wrap justify-between items-center mx-auto my-20 md:flex-row md:my-40">
@@ -14,7 +16,6 @@ const Home = () => {
             Here you will be able to search pictures, add the ones you like to
             your favorites and download them in high quality
           </p>
-          {/* BE CAREFUL HERE: when following this link the navBar does not recognise the click and does not change the active state to search */}
           <a
             href="/search"
             className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-mainColor dark:hover:bg-lightViolet dark:focus:ring-blue-800"

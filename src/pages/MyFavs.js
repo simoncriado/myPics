@@ -1,9 +1,76 @@
+// React
+import { useState } from "react";
+
+// Redux
+import { useDispatch } from "react-redux";
+import { deleteFav, editFavDescription } from "../features/favs/favsSlice";
+
+// Components
+import { FavImgs } from "../components/FavImgs";
+import { SearchForm } from "../components/SearchForm";
+import { Modal } from "../components/Modal";
+import { Dropdown } from "../components/Dropdown";
+
+// myFavs page where the user favourite images are displayed
 const MyFavs = () => {
+  const dispatch = useDispatch();
+  // State to open/close the modal and to know for which img the modal is being opened
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImg, setModalImg] = useState(null);
+  // Search and filters
+  const [query, setQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState("Date");
+
+  // Calling the delete action with the img´s ID
+  const deleteFavorite = (id) => {
+    dispatch(deleteFav(id));
+  };
+
+  // Modal functions
+  const openModal = (img) => {
+    setIsModalOpen(true);
+    setModalImg(img);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const saveEdit = (id, editedDescription) => {
+    console.log(editedDescription);
+    dispatch(editFavDescription({ id: id, description: editedDescription }));
+  };
+
+  const downloadFav = () => {
+    console.log("starting download");
+  };
+
   return (
-    <div>
-      <h1 className="my-20 text-center text-4xl text-white">
-        This is the <span className="text-red-700">myFavs</span> page
-      </h1>
+    <div className="min-h-full">
+      {isModalOpen ? (
+        <Modal
+          modalImg={modalImg}
+          saveEdit={saveEdit}
+          downloadFav={downloadFav}
+          closeModal={closeModal}
+        />
+      ) : (
+        <>
+          <div className="flex flex-col md:flex-row">
+            <SearchForm setQuery={setQuery} />
+            <Dropdown
+              activeFilter={activeFilter}
+              setActiveFilter={setActiveFilter}
+            />
+          </div>
+          <FavImgs
+            openModal={openModal}
+            deleteFavorite={deleteFavorite}
+            query={query}
+            activeFilter={activeFilter}
+          />
+        </>
+      )}
     </div>
   );
 };

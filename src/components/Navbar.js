@@ -1,11 +1,22 @@
-import { useState } from "react";
+// React and React Router
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+// Images
 import Logo from "../assets/images/logo.png";
 
+// Responsive navBar. Recognizes which page is active and styles it accordingly
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    if (window.location.toString().includes("search")) {
+      setActive("Search");
+    } else if (window.location.toString().includes("myFavs")) {
+      setActive("myFavs");
+    }
+  }, []);
 
   return (
     <nav className="bg-bgColor border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-bgColor h-20">
@@ -59,10 +70,9 @@ const Navbar = () => {
                 to="/"
                 className={`${
                   active === "Home"
-                    ? "block py-2 pr-4 pl-3 text-white bg-mainColor rounded md:bg-transparent md:text-mainColor text-lg font-extrabold md:p-0 dark:text-white"
+                    ? "block py-2 pr-4 pl-3 text-white bg-mainColor rounded md:bg-transparent md:text-mainColor font-extrabold md:p-0 dark:text-white"
                     : "block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 }`}
-                // className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
                 aria-current="page"
               >
                 Home
@@ -77,7 +87,7 @@ const Navbar = () => {
                 to="/search"
                 className={`${
                   active === "Search"
-                    ? "block py-2 pr-4 pl-3 text-white bg-mainColor rounded md:bg-transparent md:text-mainColor text-lg font-extrabold md:p-0 dark:text-white"
+                    ? "block py-2 pr-4 pl-3 text-white bg-mainColor rounded md:bg-transparent md:text-mainColor font-extrabold md:p-0 dark:text-white"
                     : "block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 }`}
               >
@@ -93,7 +103,7 @@ const Navbar = () => {
                 to="/myFavs"
                 className={`${
                   active === "myFavs"
-                    ? "block py-2 pr-4 pl-3 text-white bg-mainColor rounded md:bg-transparent md:text-mainColor text-lg font-extrabold md:p-0 dark:text-white"
+                    ? "block py-2 pr-4 pl-3 text-white bg-mainColor rounded md:bg-transparent md:text-mainColor font-extrabold md:p-0 dark:text-white"
                     : "block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 }`}
               >

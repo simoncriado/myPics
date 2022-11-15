@@ -1,5 +1,7 @@
+// Redux
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+// Creating an async fetch function
 export const fetchPhotos = createAsyncThunk(
   "photos/fetchPhotos",
 
@@ -8,6 +10,7 @@ export const fetchPhotos = createAsyncThunk(
     const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${query}&per_page=18&orientation=landscape`;
     const URL_RANDOM_SEARCH = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=18&orientation=landscape`;
 
+    // If no search input, I generate a random list of images
     if (query && query !== "") {
       const response = await fetch(URL);
       const data = await response.json();
@@ -20,27 +23,25 @@ export const fetchPhotos = createAsyncThunk(
   }
 );
 
+// Checking the status of the promise. When fulfilled: the images array will be populated
 export const searchSlice = createSlice({
   name: "search",
   initialState: {
-    isLoading: false,
-    photos: [],
+    images: [],
   },
   extraReducers: {
-    [fetchPhotos.pending]: (state) => {
-      state.isLoading = true;
+    [fetchPhotos.pending]: () => {
+      console.log("Loading...");
     },
     [fetchPhotos.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.photos = action.payload;
+      console.log("Loading completed!");
+      state.images = action.payload;
     },
-    [fetchPhotos.rejected]: (state) => {
-      state.isLoading = false;
+    [fetchPhotos.rejected]: () => {
       console.log("Failure while fetching the requested data!");
     },
   },
 });
 
 export default searchSlice.reducer;
-export const selectPhotos = (state) => state.searchImages.photos;
-export const loading = (state) => state.searchImages.isLoading;
+export const selectImages = (state) => state.searchImages.images;
