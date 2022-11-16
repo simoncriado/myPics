@@ -26,17 +26,16 @@ export const FavImgs = ({ openModal, deleteFavorite, query, activeFilter }) => {
 
     switch (activeFilter) {
       case "Date":
-        orderedImgs.sort((a, b) => b.date - a.date);
+        orderedImgs.sort((a, b) => b.dateToSort - a.dateToSort);
         break;
       case "Width":
-        orderedImgs.sort((a, b) => a.width - b.width);
-        console.log("filtering by width");
+        orderedImgs.sort((a, b) => b.width - a.width);
         break;
       case "Height":
-        orderedImgs.sort((a, b) => a.height - b.height);
+        orderedImgs.sort((a, b) => b.height - a.height);
         break;
       case "Likes":
-        orderedImgs.sort((a, b) => a.likes - b.likes);
+        orderedImgs.sort((a, b) => b.likes - a.likes);
         break;
       default:
         break;
@@ -45,20 +44,20 @@ export const FavImgs = ({ openModal, deleteFavorite, query, activeFilter }) => {
   }, [query, activeFilter, favImages]);
 
   return (
-    <div className="flex flex-wrap justify-center items-center h-full mx-0 md:mx-8">
+    <div className="flex flex-wrap justify-center items-center h-full mx-0 md:mx-8 z-0">
       {filteredImages.map((img) => {
         return (
           <div
             key={img.id}
-            className="w-1/2 lg:w-1/3  h-96 mx-6 my-6 relative overflow-hidden md:transition md:duration-500 rounded shadow-md shadow-gray-600"
+            className="w-80 md:w-1/2 lg:w-1/3 h-64 md:h-96 mx-6 my-6 relative overflow-hidden md:transition md:duration-500 rounded shadow-md"
           >
             <img
-              className="object-fill w-full h-96 rounded"
+              className="object-fill w-full h-64 md:h-96 rounded"
               src={img.urlFull}
               alt={img.description}
             />
             <svg
-              className="w-8 h-8 text-mainColor absolute bottom-2 left-2 text-lg hover:animate-bounce"
+              className="w-8 h-8 text-mainColor absolute bottom-2 left-2 text-lg hover:animate-bounce cursor-pointer"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -75,7 +74,7 @@ export const FavImgs = ({ openModal, deleteFavorite, query, activeFilter }) => {
               ></path>
             </svg>
             <svg
-              className="w-8 h-8 text-mainColor absolute bottom-2 right-2 text-lg hover:animate-bounce"
+              className="w-8 h-8 text-mainColor absolute bottom-2 right-2 text-lg hover:animate-bounce cursor-pointer"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

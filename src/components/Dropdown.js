@@ -56,11 +56,11 @@ export const Dropdown = ({ activeFilter, setActiveFilter }) => {
             <ul
               className={`${!toggle ? "hidden" : ""}  dropdown-menu
           min-w-max
-          sticky
+          absolute
           bg-gray-700
           w-full
           text-base
-          z-99
+          z-50
           float-left
           py-2
           list-none

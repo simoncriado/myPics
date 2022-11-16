@@ -28,14 +28,6 @@ const Search = () => {
     }, 2000);
   };
 
-  // To be used when a new img is added to favs to get the actual date and time
-  const getActualDateAndTime = () => {
-    const date = new Date();
-    const day = date.toLocaleDateString();
-    const time = date.toLocaleTimeString();
-    return `${day}, ${time}`;
-  };
-
   const markAsFav = (id, img) => {
     // Filling the heart icon with red color
     const heart = document.getElementById(id);
@@ -50,7 +42,8 @@ const Search = () => {
         urlFull: img.urls.full,
         urlThumb: img.urls.thumb,
         likes: img.likes,
-        date: getActualDateAndTime(),
+        date: new Date().toLocaleString(),
+        dateToSort: Date.now(),
       })
     );
   };

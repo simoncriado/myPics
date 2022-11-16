@@ -20,21 +20,24 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
       },
       animation: {
-        fadeOut: "fadeOut 1s ease-in-out",
+        fadeOut: "fadeOut 7s ease-in-out",
         fadeIn: "fadeIn 1s ease-in-out",
+        fade: "fadeIn 1s easy-in-out, fadeOut 7s ease-in-out",
       },
 
       // that is actual animation
-      keyframes: (theme) => ({
-        fadeOut: {
-          "0%": { opacity: 1 },
-          "100%": { opacity: 0 },
-        },
+      keyframes: {
         fadeIn: {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
-      }),
+        fadeOut: {
+          "0%": { opacity: 0 },
+          "20%": { opacity: 1 },
+          "80%": { opacity: 1 },
+          "100%": { opacity: 0 },
+        },
+      },
     },
     screens: {
       xs: "480px",

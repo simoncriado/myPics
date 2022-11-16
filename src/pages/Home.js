@@ -5,8 +5,8 @@ import { Slider } from "../components/Slider";
 const Home = () => {
   return (
     <div className="container flex flex-col flex-wrap justify-between items-center mx-auto my-20 md:flex-row md:my-40">
-      <div className="flex-1 py-auto p-6">
-        <div className="shadow-none max-w-sm bg-white rounded-lg  shadow-md dark:bg-bgColor">
+      <div className="flex-1 py-auto p-6 xl:pl-40">
+        <div className="shadow-none max-w-sm bg-white rounded-lg shadow-md dark:bg-bgColor">
           <div>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               myPics App

@@ -7,9 +7,12 @@ import { deleteFav, editFavDescription } from "../features/favs/favsSlice";
 
 // Components
 import { FavImgs } from "../components/FavImgs";
-import { SearchForm } from "../components/SearchForm";
+import { SearchFavs } from "../components/SearchFavs";
 import { Modal } from "../components/Modal";
 import { Dropdown } from "../components/Dropdown";
+
+// File saver
+import { saveAs } from "file-saver";
 
 // myFavs page where the user favourite images are displayed
 const MyFavs = () => {
@@ -37,16 +40,23 @@ const MyFavs = () => {
   };
 
   const saveEdit = (id, editedDescription) => {
-    console.log(editedDescription);
     dispatch(editFavDescription({ id: id, description: editedDescription }));
   };
 
-  const downloadFav = () => {
-    console.log("starting download");
+  const downloadFav = (url, id) => {
+    saveAs(url, `${id}.jpeg`);
   };
 
   return (
-    <div className="min-h-full">
+    <div
+      className="min-h-full"
+      onKeyUp={(e) => {
+        console.log(e.key);
+        if (e.key === "Escape") {
+          closeModal();
+        }
+      }}
+    >
       {isModalOpen ? (
         <Modal
           modalImg={modalImg}
@@ -56,8 +66,8 @@ const MyFavs = () => {
         />
       ) : (
         <>
-          <div className="flex flex-col md:flex-row">
-            <SearchForm setQuery={setQuery} />
+          <div className="flex flex-col md:flex-row justify-around">
+            <SearchFavs setQuery={setQuery} />
             <Dropdown
               activeFilter={activeFilter}
               setActiveFilter={setActiveFilter}

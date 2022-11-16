@@ -16,7 +16,7 @@ export const SearchedImg = ({ markAsFav }) => {
         return (
           <div
             key={img.id}
-            className="w-80 h-60 mx-6 my-6 relative overflow-hidden  rounded shadow-md shadow-gray-600"
+            className="w-80 h-60 mx-6 my-6 relative overflow-hidden rounded shadow-md"
           >
             <img
               className="object-fill w-80 h-60 rounded "
@@ -28,7 +28,7 @@ export const SearchedImg = ({ markAsFav }) => {
               onClick={() => {
                 markAsFav(img.id, img);
               }}
-              className="w-8 h-8 text-red-600 absolute bottom-2 right-2 text-lg hover:animate-bounce"
+              className="w-8 h-8 text-red-600 absolute bottom-2 right-2 text-lg hover:animate-bounce cursor-pointer"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

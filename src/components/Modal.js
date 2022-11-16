@@ -9,7 +9,7 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
 
   return (
     <div
-      className="relative modal fade mx-auto my-20 w-4/5 md:w-1/2 h-1/2 outline-none overflow-x-hidden overflow-y-auto bg-gray-700 rounded-xl"
+      className="relative modal fade mx-4 ss:mx-auto my-20 w-9/10 ss:w-4/5 md:w-1/2 h-1/2 outline-none overflow-x-hidden overflow-y-auto bg-gray-700 rounded-xl"
       id="exampleModal"
       tabIndex="-1"
       aria-labelledby="exampleModalLabel"
@@ -42,19 +42,26 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
               ></path>
             </svg>
           </div>
-          <div className="modal-body relative p-4">
-            <div className="relative bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
+          <div className="modal-body relative p-1 ss:p-4">
+            <div className="relative bg-gray-500  rounded-lg p-2 m-1 text-gray-100">
               <h2>Description:</h2>
               {isEditing ? (
                 <input
                   type="text"
                   placeholder="Enter a new description..."
+                  className="bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white "
                   onChange={(e) => {
                     setEditedDescription(e.target.value);
                   }}
                 />
+              ) : currentImg.description === null ? (
+                <p className="text-gray-900">
+                  No description was added for this Image...
+                </p>
               ) : (
-                <p className="truncate">{currentImg.description}</p>
+                <p className="truncate text-gray-900">
+                  {currentImg.description}
+                </p>
               )}
 
               <svg
@@ -64,7 +71,7 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
                 onClick={() => {
-                  setIsEditing(true);
+                  setIsEditing(!isEditing);
                 }}
               >
                 <path
@@ -77,19 +84,19 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Width:</h2>
-              <p>{currentImg.width}</p>
+              <p className="text-gray-900">{currentImg.width}</p>
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Height:</h2>
-              <p>{currentImg.height}</p>
+              <p className="text-gray-900">{currentImg.height}</p>
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Likes:</h2>
-              <p>{currentImg.likes}</p>
+              <p className="text-gray-900">{currentImg.likes}</p>
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Marked as Fav on:</h2>
-              <p>{currentImg.date}</p>
+              <p className="text-gray-900">{currentImg.date}</p>
             </div>
           </div>
           <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-500 rounded-b-md">
@@ -100,7 +107,7 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               onClick={() => {
-                downloadFav();
+                downloadFav(currentImg.urlFull, currentImg.id);
               }}
             >
               <path

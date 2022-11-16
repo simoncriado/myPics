@@ -19,7 +19,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-bgColor border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-bgColor h-20">
+    <nav className="bg-bgColor border-gray-200 px-2 ss:px-4 md:px-10 xl:px-64 py-2.5 rounded dark:bg-bgColor h-20">
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link
           onClick={() => {
