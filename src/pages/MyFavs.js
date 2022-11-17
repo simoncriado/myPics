@@ -51,7 +51,6 @@ const MyFavs = () => {
     <div
       className="min-h-full"
       onKeyUp={(e) => {
-        console.log(e.key);
         if (e.key === "Escape") {
           closeModal();
         }

@@ -13,7 +13,7 @@ import { Footer } from "./components/Footer";
 function App() {
   return (
     <div className="bg-bgColor w-full min-h-screen ">
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

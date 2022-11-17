@@ -1,3 +1,6 @@
+// React Router
+import { Link } from "react-router-dom";
+
 // Components
 import { Slider } from "../components/Slider";
 
@@ -16,8 +19,8 @@ const Home = () => {
             Here you will be able to search pictures, add the ones you like to
             your favorites and download them in high quality
           </p>
-          <a
-            href="/search"
+          <Link
+            to="/search"
             className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-mainColor dark:hover:bg-lightViolet dark:focus:ring-blue-800"
           >
             Start searching
@@ -34,7 +37,7 @@ const Home = () => {
                 clipRule="evenodd"
               ></path>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
       <Slider />
