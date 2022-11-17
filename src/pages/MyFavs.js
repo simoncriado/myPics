@@ -1,8 +1,8 @@
 // React
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteFav, editFavDescription } from "../features/favs/favsSlice";
 
 // Components
@@ -10,12 +10,15 @@ import { FavImgs } from "../components/FavImgs";
 import { SearchFavs } from "../components/SearchFavs";
 import { Modal } from "../components/Modal";
 import { Dropdown } from "../components/Dropdown";
+import Pagination from "../components/Pagination";
 
 // File saver
 import { saveAs } from "file-saver";
 
 // myFavs page where the user favourite images are displayed
 const MyFavs = () => {
+  // State with all favourite images
+  const { favImages } = useSelector((state) => state.favImages);
   const dispatch = useDispatch();
   // State to open/close the modal and to know for which img the modal is being opened
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +26,54 @@ const MyFavs = () => {
   // Search and filters
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("Date");
+  const [filteredImages, setFilteredImages] = useState(favImages);
+
+  // My favourite images filtering functions
+  useEffect(() => {
+    // Filtering by search input
+    let filteredImgs;
+    if (query.length) {
+      filteredImgs = favImages.filter(
+        (img) =>
+          img.description &&
+          img.description.toLowerCase().includes(query.toLowerCase())
+      );
+    } else {
+      filteredImgs = favImages;
+    }
+    setFilteredImages(filteredImgs);
+
+    // Filtering by dropdown selection based on the filtered by search input array (in case the user used the search bar)
+    const orderedImgs = [...filteredImgs];
+    switch (activeFilter) {
+      case "Date":
+        orderedImgs.sort((a, b) => b.dateToSort - a.dateToSort);
+        break;
+      case "Width":
+        orderedImgs.sort((a, b) => b.width - a.width);
+        break;
+      case "Height":
+        orderedImgs.sort((a, b) => b.height - a.height);
+        break;
+      case "Likes":
+        orderedImgs.sort((a, b) => b.likes - a.likes);
+        break;
+      default:
+        break;
+    }
+    setFilteredImages(orderedImgs);
+  }, [query, activeFilter, favImages]);
+
+  // Variables for the pagination component
+  const [currentPage, setCurrentPage] = useState(1);
+  const [imagesPerPage] = useState(6);
+  const indexOfLastImage = currentPage * imagesPerPage; // For example: let´s say we have 17 pages. indexOfLastImage = 17 * 6 = 102
+  const indexOfFirstImage = indexOfLastImage - imagesPerPage; // Following same example: indexOfFirstImage = 102–6 = 96
+  const currentImages = filteredImages.slice(
+    indexOfFirstImage,
+    indexOfLastImage
+  ); // Images to be displayed on the current page. slice(96, 102) will return images from index 96 to 101
+  const nPages = Math.ceil(filteredImages.length / imagesPerPage);
 
   // Calling the delete action with the img´s ID
   const deleteFavorite = (id) => {
@@ -77,6 +128,12 @@ const MyFavs = () => {
             deleteFavorite={deleteFavorite}
             query={query}
             activeFilter={activeFilter}
+            filteredImages={currentImages}
+          />
+          <Pagination
+            nPages={nPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
           />
         </>
       )}
