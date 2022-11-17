@@ -1,48 +1,11 @@
-// React
-import React, { useEffect, useState } from "react";
-
-// Redux
-import { useSelector } from "react-redux";
-
 // This component gets all favorite images, filters them and creates an image card for each one
-export const FavImgs = ({ openModal, deleteFavorite, query, activeFilter }) => {
-  const { favImages } = useSelector((state) => state.favImages);
-  const [filteredImages, setFilteredImages] = useState(favImages);
-
-  // My favourite images filtering functions
-  useEffect(() => {
-    let filteredImgs;
-    if (query.length) {
-      filteredImgs = favImages.filter(
-        (img) =>
-          img.description &&
-          img.description.toLowerCase().includes(query.toLowerCase())
-      );
-    } else {
-      filteredImgs = favImages;
-    }
-    setFilteredImages(filteredImgs);
-    const orderedImgs = [...filteredImgs];
-
-    switch (activeFilter) {
-      case "Date":
-        orderedImgs.sort((a, b) => b.dateToSort - a.dateToSort);
-        break;
-      case "Width":
-        orderedImgs.sort((a, b) => b.width - a.width);
-        break;
-      case "Height":
-        orderedImgs.sort((a, b) => b.height - a.height);
-        break;
-      case "Likes":
-        orderedImgs.sort((a, b) => b.likes - a.likes);
-        break;
-      default:
-        break;
-    }
-    setFilteredImages(orderedImgs);
-  }, [query, activeFilter, favImages]);
-
+export const FavImgs = ({
+  openModal,
+  deleteFavorite,
+  query,
+  activeFilter,
+  filteredImages,
+}) => {
   return (
     <div className="flex flex-wrap justify-center items-center h-full mx-0 md:mx-8 z-0">
       {filteredImages.map((img) => {
