@@ -1,15 +1,9 @@
 //React
 import React from "react";
 
-// Redux
-import { useSelector } from "react-redux";
-import { selectImages } from "../features/search/searchSlice";
-
 // Component that gets a list of images and creates a card for each one. The list is coming after the user searches for images. If the user enters a search input I fetch based on that inupt.
 // If the user enters no input I fetch a random list of images.
-export const SearchedImg = ({ markAsFav }) => {
-  const imagesList = useSelector(selectImages);
-
+export const SearchedImg = ({ markAsFav, imagesList }) => {
   return (
     <div className="flex flex-wrap justify-center items-center h-full mx-0 md:mx-8">
       {imagesList.map((img) => {
