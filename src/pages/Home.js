@@ -9,19 +9,19 @@ const Home = () => {
   return (
     <div className="container flex flex-col flex-wrap justify-between items-center mx-auto my-20 md:flex-row md:my-40">
       <div className="flex-1 py-auto p-6 xl:pl-40">
-        <div className="shadow-none max-w-sm bg-white rounded-lg shadow-md dark:bg-bgColor">
+        <div className="shadow-none max-w-sm rounded-lg shadow-md bg-bgColor">
           <div>
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-100">
               myPics App
             </h5>
           </div>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <p className="mb-3 font-normal text-gray-400">
             Here you will be able to search pictures, add the ones you like to
             your favorites and download them in high quality
           </p>
           <Link
             to="/search"
-            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-mainColor dark:hover:bg-lightViolet dark:focus:ring-blue-800"
+            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-gray-100 bg-mainColor rounded-lg hover:bg-lightViolet hover:text-gray-800"
           >
             Start searching
             <svg
