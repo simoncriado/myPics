@@ -1,5 +1,4 @@
 // React
-import { current } from "@reduxjs/toolkit";
 import React, { useState } from "react";
 
 // Component to display information about the user´s selected image. Possibility to edit the description, download the image and close the modal
