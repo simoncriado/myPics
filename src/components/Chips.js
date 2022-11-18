@@ -3,11 +3,9 @@ import React from "react";
 
 const Chips = ({ filteredImages, activeChip, setActiveChip }) => {
   let tags = [];
-  console.log(filteredImages);
   // For each image, looping through the tags and if the tag is not already in the tags varible, including it
   if (filteredImages.length) {
     filteredImages.forEach((img) => {
-      console.log(img);
       img.tags.forEach((tag) => {
         if ([...tags].every((obj) => obj !== tag.title)) {
           tags = [...tags, tag.title];
