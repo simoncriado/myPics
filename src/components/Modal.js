@@ -1,4 +1,5 @@
 // React
+import { current } from "@reduxjs/toolkit";
 import React, { useState } from "react";
 
 // Component to display information about the user´s selected image. Possibility to edit the description, download the image and close the modal
@@ -43,13 +44,13 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
             </svg>
           </div>
           <div className="modal-body relative p-1 ss:p-4">
-            <div className="relative bg-gray-500  rounded-lg p-2 m-1 text-gray-100">
+            <div className="relative bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Description:</h2>
               {isEditing ? (
                 <input
                   type="text"
                   placeholder="Enter a new description..."
-                  className="bg-gray-50 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white "
+                  className="text-gray-900 text-sm rounded-lg block w-full p-2.5 bg-gray-700 placeholder-gray-400 text-white"
                   onChange={(e) => {
                     setEditedDescription(e.target.value);
                   }}
@@ -89,6 +90,25 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Height:</h2>
               <p className="text-gray-900">{currentImg.height}</p>
+            </div>
+            <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
+              <h2>Tags:</h2>
+              <div className="flex flex-nowrap gap-1 pt-1">
+                {currentImg.tags.length ? (
+                  currentImg.tags.map((tag) => (
+                    <span
+                      key={Math.floor(Math.random() * 10000)}
+                      className="px-3 py-1 md:px-4 md:py-2 capitalize rounded-full bg-gray-700 text-gray-300 font-semibold text-sm flex align-center w-max cursor-pointer transition duration-300 ease"
+                    >
+                      {tag.title}
+                    </span>
+                  ))
+                ) : (
+                  <p className="text-gray-900">
+                    No tags available for this image...
+                  </p>
+                )}
+              </div>
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Likes:</h2>

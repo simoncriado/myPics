@@ -17,19 +17,12 @@ const Chips = ({ filteredImages, activeChip, setActiveChip }) => {
   let sortedTags = tags.sort();
 
   const changeColor = (e) => {
-    if (
-      e.currentTarget.classList.contains(
-        "dark:bg-gray-800" && "dark:text-gray-400"
-      )
-    ) {
-      e.currentTarget.classList.remove(
-        "dark:bg-gray-800",
-        "dark:text-gray-400"
-      );
-      e.currentTarget.classList.add("dark:bg-gray-300", "text-mainColor");
+    if (e.currentTarget.classList.contains("bg-gray-800" && "text-gray-400")) {
+      e.currentTarget.classList.remove("bg-gray-800", "text-gray-400");
+      e.currentTarget.classList.add("bg-gray-300", "text-mainColor");
     } else {
-      e.currentTarget.classList.remove("dark:bg-gray-300", "text-mainColor");
-      e.currentTarget.classList.add("dark:bg-gray-800", "dark:text-gray-400");
+      e.currentTarget.classList.remove("bg-gray-300", "text-mainColor");
+      e.currentTarget.classList.add("bg-gray-800", "text-gray-400");
     }
   };
 
@@ -46,7 +39,7 @@ const Chips = ({ filteredImages, activeChip, setActiveChip }) => {
               : setActiveChip([...activeChip, tag]);
           }}
           key={tag}
-          className="px-3 py-1 md:px-4 md:py-2 capitalize rounded-full dark:bg-gray-800 dark:text-gray-400 font-semibold text-sm flex align-center w-max cursor-pointer active:bg-gray-300 transition duration-300 ease"
+          className="px-3 py-1 md:px-4 md:py-2 capitalize rounded-full bg-gray-800 text-gray-400 font-semibold text-sm flex align-center w-max cursor-pointer transition duration-300 ease"
         >
           {tag}
         </span>
