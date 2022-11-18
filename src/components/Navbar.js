@@ -23,7 +23,6 @@ const Navbar = () => {
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link
           onClick={() => {
-            setToggle(!toggle);
             setActive("Home");
           }}
           to="/"
@@ -64,7 +63,10 @@ const Navbar = () => {
             <li>
               <Link
                 onClick={() => {
-                  setToggle(!toggle);
+                  // This check avoids the toggle for full screen size. Only when the hamburger menu is shown (width less than 1060px) then the toggle will be activated
+                  if (window.innerWidth < 1060) {
+                    setToggle(!toggle);
+                  }
                   setActive("Home");
                 }}
                 to="/"
@@ -81,7 +83,9 @@ const Navbar = () => {
             <li>
               <Link
                 onClick={() => {
-                  setToggle(!toggle);
+                  if (window.innerWidth < 1060) {
+                    setToggle(!toggle);
+                  }
                   setActive("Search");
                 }}
                 to="/search"
@@ -97,7 +101,9 @@ const Navbar = () => {
             <li>
               <Link
                 onClick={() => {
-                  setToggle(!toggle);
+                  if (window.innerWidth < 1060) {
+                    setToggle(!toggle);
+                  }
                   setActive("myFavs");
                 }}
                 to="/myFavs"

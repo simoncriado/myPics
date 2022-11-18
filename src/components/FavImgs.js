@@ -1,11 +1,5 @@
 // This component gets all favorite images, filters them and creates an image card for each one
-export const FavImgs = ({
-  openModal,
-  deleteFavorite,
-  query,
-  activeFilter,
-  filteredImages,
-}) => {
+export const FavImgs = ({ openModal, deleteFavorite, filteredImages }) => {
   return (
     <div className="flex flex-wrap justify-center items-center h-full mx-0 md:mx-8 z-0">
       {filteredImages.map((img) => {
