@@ -54,6 +54,7 @@ const Search = () => {
         likes: img.likes,
         date: new Date().toLocaleString(),
         dateToSort: Date.now(),
+        tags: img.tags ? img.tags : [],
       })
     );
   };

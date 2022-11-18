@@ -14,6 +14,7 @@ import Pagination from "../components/Pagination";
 
 // File saver
 import { saveAs } from "file-saver";
+import Chips from "../components/Chips";
 
 // myFavs page where the user favourite images are displayed
 const MyFavs = () => {
@@ -26,6 +27,7 @@ const MyFavs = () => {
   // Search and filters
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("Date");
+  const [activeChip, setActiveChip] = useState([]);
   const [filteredImages, setFilteredImages] = useState(favImages);
 
   // My favourite images filtering functions
@@ -62,7 +64,17 @@ const MyFavs = () => {
         break;
     }
     setFilteredImages(orderedImgs);
-  }, [query, activeFilter, favImages]);
+
+    let chipImgs = orderedImgs.filter((img) => {
+      return Object.values(img.tags).some((tag) => {
+        return Object.values(activeChip).includes(tag.title);
+      });
+    });
+
+    if (chipImgs.length) {
+      setFilteredImages(chipImgs);
+    }
+  }, [query, activeFilter, favImages, activeChip]);
 
   // Variables for the pagination component
   const [currentPage, setCurrentPage] = useState(1);
@@ -123,17 +135,21 @@ const MyFavs = () => {
               setActiveFilter={setActiveFilter}
             />
           </div>
+          <Chips
+            filteredImages={filteredImages}
+            activeChip={activeChip}
+            setActiveChip={setActiveChip}
+          />
           <FavImgs
             openModal={openModal}
             deleteFavorite={deleteFavorite}
-            query={query}
-            activeFilter={activeFilter}
             filteredImages={currentImages}
           />
           <Pagination
             nPages={nPages}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
+            currentImages={currentImages}
           />
         </>
       )}

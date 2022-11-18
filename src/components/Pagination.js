@@ -2,7 +2,7 @@
 import React from "react";
 
 // Component that creates a pagination. Each page contains 10 elements.
-const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
+const Pagination = ({ nPages, currentPage, setCurrentPage, currentImages }) => {
   // Creates an array that holds all the page numbers from 1 to the total number of pages (this variable coming from the parent component)
   const pageNumbers = [...Array(nPages + 1).keys()].slice(1);
 
@@ -13,6 +13,12 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
   const prevPage = () => {
     if (currentPage !== 1) setCurrentPage(currentPage - 1);
   };
+
+  // This is check is so that if the user is in page more than 1 and performs a search. The user will be redirected to page 1 where the results are shown. Without this check the user would stay in the current page with no results
+  // WARNING: cannot update "MyFavs" while rendering "Pagination"...
+  // if (currentImages !== undefined && !currentImages.length) {
+  //   setCurrentPage(1);
+  // }
 
   return (
     <nav aria-label="Page navigation example relative ">
