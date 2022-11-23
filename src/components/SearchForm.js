@@ -37,7 +37,7 @@ export const SearchForm = ({ handleSubmit, setQuery }) => {
           />
           <button
             type="submit"
-            onClick={handleSubmit}
+            onClick={(e) => handleSubmit(e)}
             className="text-white absolute right-2.5 bottom-2.5 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 bg-mainColor hover:bg-lightViolet "
           >
             Search

@@ -22,7 +22,7 @@ export const Modal = ({
 
     deleteTag(modalImg.id, tag);
   };
-  const handleAddTag = (id) => {
+  const handleAddTag = (id, e) => {
     setImgTags([
       ...imgTags,
       {
@@ -32,7 +32,7 @@ export const Modal = ({
       },
     ]);
     addTag(id, newTag);
-    document.getElementById("tagInput").value = "";
+    e.target.value = "";
   };
 
   return (
@@ -180,8 +180,8 @@ export const Modal = ({
                 duration-150
                 ease-in-out
                 ml-1"
-                  onClick={() => {
-                    handleAddTag(modalImg.id);
+                  onClick={(e) => {
+                    handleAddTag(modalImg.id, e);
                   }}
                 >
                   Add tag
