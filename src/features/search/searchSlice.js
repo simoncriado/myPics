@@ -7,8 +7,8 @@ export const fetchPhotos = createAsyncThunk(
 
   async ({ query }) => {
     const API_KEY = "_OSLZtUPSaNQCHE5nx6fSOCWHY9SJwbKbzKQdazThUo";
-    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${query}&per_page=50&orientation=landscape`;
-    const URL_RANDOM_SEARCH = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=30&orientation=landscape`;
+    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${query}&per_page=50`;
+    const URL_RANDOM_SEARCH = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=30`;
 
     // If no search input, I generate a random list of images
     if (query && query !== "") {

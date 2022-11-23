@@ -2,10 +2,38 @@
 import React, { useState } from "react";
 
 // Component to display information about the user´s selected image. Possibility to edit the description, download the image and close the modal
-export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
-  const currentImg = modalImg;
+export const Modal = ({
+  modalImg,
+  saveEdit,
+  addTag,
+  deleteTag,
+  downloadFav,
+  closeModal,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedDescription, setEditedDescription] = useState("");
+  const [newTag, setNewTag] = useState("");
+  // State to store the modalImg tags. Like this I can update the tags when a tag gets added or deleted and rerender the modal component
+  const [imgTags, setImgTags] = useState(modalImg.tags);
+
+  // When deleting or adding a tag: updating the Store and also the component´s state
+  const handleDeleteTag = (tag) => {
+    setImgTags(imgTags.filter((obj) => obj.title !== tag));
+
+    deleteTag(modalImg.id, tag);
+  };
+  const handleAddTag = (id) => {
+    setImgTags([
+      ...imgTags,
+      {
+        id: id,
+        title: newTag,
+        key: Math.floor(Math.random() * 100000),
+      },
+    ]);
+    addTag(id, newTag);
+    document.getElementById("tagInput").value = "";
+  };
 
   return (
     <div
@@ -54,14 +82,12 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
                     setEditedDescription(e.target.value);
                   }}
                 />
-              ) : currentImg.description === null ? (
+              ) : modalImg.description === null ? (
                 <p className="text-gray-900">
                   No description was added for this Image...
                 </p>
               ) : (
-                <p className="truncate text-gray-900">
-                  {currentImg.description}
-                </p>
+                <p className="truncate text-gray-900">{modalImg.description}</p>
               )}
 
               <svg
@@ -84,22 +110,44 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Width:</h2>
-              <p className="text-gray-900">{currentImg.width}</p>
+              <p className="text-gray-900">{modalImg.width}</p>
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Height:</h2>
-              <p className="text-gray-900">{currentImg.height}</p>
+              <p className="text-gray-900">{modalImg.height}</p>
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Tags:</h2>
-              <div className="flex flex-nowrap gap-1 pt-1">
-                {currentImg.tags.length ? (
-                  currentImg.tags.map((tag) => (
+              <div className="flex flex-wrap gap-1 pt-1">
+                {imgTags.length ? (
+                  imgTags.map((tag) => (
                     <span
-                      key={Math.floor(Math.random() * 10000)}
-                      className="px-3 py-1 md:px-4 md:py-2 capitalize rounded-full bg-gray-700 text-gray-300 font-semibold text-sm flex align-center w-max cursor-pointer transition duration-300 ease"
+                      key={Math.floor(Math.random() * 100000)}
+                      className="px-3 py-1 capitalize rounded-full bg-gray-700 text-gray-300 font-semibold text-sm flex align-center w-max cursor-pointer transition duration-300 ease"
                     >
                       {tag.title}
+                      <button
+                        onClick={() => {
+                          handleDeleteTag(tag.title);
+                        }}
+                        className="bg-transparent hover focus:outline-none hover:text-red-500"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="times"
+                          className="w-3 ml-3"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 352 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                          ></path>
+                        </svg>
+                      </button>
                     </span>
                   ))
                 ) : (
@@ -108,14 +156,45 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
                   </p>
                 )}
               </div>
+              <div className="flex flex-nowrap gap-1 pt-1">
+                <input
+                  id="tagInput"
+                  type="text"
+                  placeholder="Create a new tag..."
+                  className="text-gray-900 text-sm rounded-lg block w-3/4 p-2.5 bg-gray-700 placeholder-gray-400 text-white"
+                  onChange={(e) => {
+                    setNewTag(e.target.value);
+                  }}
+                />
+                <button
+                  className="w-1/4 px-6
+                py-2.5
+                bg-mainColor
+                text-gray-100
+                font-medium
+                leading-tight
+                rounded-lg
+                shadow-md
+                hover:bg-lightViolet hover:shadow-lg
+                transition
+                duration-150
+                ease-in-out
+                ml-1"
+                  onClick={() => {
+                    handleAddTag(modalImg.id);
+                  }}
+                >
+                  Add tag
+                </button>
+              </div>
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Likes:</h2>
-              <p className="text-gray-900">{currentImg.likes}</p>
+              <p className="text-gray-900">{modalImg.likes}</p>
             </div>
             <div className="bg-gray-500 rounded-lg p-2 m-1 text-gray-100">
               <h2>Marked as Fav on:</h2>
-              <p className="text-gray-900">{currentImg.date}</p>
+              <p className="text-gray-900">{modalImg.date}</p>
             </div>
           </div>
           <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-500 rounded-b-md">
@@ -126,7 +205,7 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               onClick={() => {
-                downloadFav(currentImg.urlFull, currentImg.id);
+                downloadFav(modalImg.urlFull, modalImg.id);
               }}
             >
               <path
@@ -139,7 +218,7 @@ export const Modal = ({ modalImg, saveEdit, downloadFav, closeModal }) => {
             <button
               type="button"
               onClick={() => {
-                saveEdit(currentImg.id, editedDescription);
+                saveEdit(modalImg.id, editedDescription);
                 closeModal();
               }}
               className="px-6

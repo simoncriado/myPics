@@ -36,7 +36,7 @@ export const Dropdown = ({ activeFilter, setActiveFilter }) => {
               aria-expanded="false"
               onClick={() => setToggle(!toggle)}
             >
-              {`Filtering by ${activeFilter}`}
+              {`Sorting by ${activeFilter}`}
               <svg
                 aria-hidden="true"
                 focusable="false"

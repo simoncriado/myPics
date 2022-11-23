@@ -5,15 +5,12 @@ import React from "react";
 // If the user enters no input I fetch a random list of images.
 export const SearchedImg = ({ markAsFav, imagesList }) => {
   return (
-    <div className="flex flex-wrap justify-center items-center h-full mx-0 md:mx-8">
+    <div className="gap-4 m-4 columns-1 ss:columns-2 lg:columns-3">
       {imagesList.map((img) => {
         return (
-          <div
-            key={img.id}
-            className="w-80 h-60 mx-6 my-6 relative overflow-hidden rounded shadow-md"
-          >
+          <div key={img.id} className="mb-4 rounded shadow-md relative">
             <img
-              className="object-fill w-80 h-60 rounded "
+              className="w-full aspect-auto rounded"
               src={img.urls.full}
               alt={img.alt_description}
             />

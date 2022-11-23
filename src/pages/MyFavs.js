@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFav, editFavDescription } from "../features/favs/favsSlice";
+import {
+  deleteFav,
+  editFavDescription,
+  addFavTag,
+  deleteFavTag,
+} from "../features/favs/favsSlice";
 
 // Components
 import { FavImgs } from "../components/FavImgs";
@@ -29,6 +34,8 @@ const MyFavs = () => {
   const [activeFilter, setActiveFilter] = useState("Date");
   const [activeChip, setActiveChip] = useState([]);
   const [filteredImages, setFilteredImages] = useState(favImages);
+  // State for the pagination. Used to know which images to display on each page
+  const [currentImages, setCurrentImages] = useState([]);
 
   // My favourite images filtering functions
   useEffect(() => {
@@ -78,13 +85,15 @@ const MyFavs = () => {
 
   // Variables for the pagination component
   const [currentPage, setCurrentPage] = useState(1);
-  const [imagesPerPage] = useState(6);
-  const indexOfLastImage = currentPage * imagesPerPage; // For example: let´s say we have 17 pages. indexOfLastImage = 17 * 6 = 102
-  const indexOfFirstImage = indexOfLastImage - imagesPerPage; // Following same example: indexOfFirstImage = 102–6 = 96
-  const currentImages = filteredImages.slice(
-    indexOfFirstImage,
-    indexOfLastImage
-  ); // Images to be displayed on the current page. slice(96, 102) will return images from index 96 to 101
+  const [imagesPerPage] = useState(9);
+  const indexOfLastImage = currentPage * imagesPerPage; // For example: let´s say we have 17 pages. indexOfLastImage = 17 * imagesPerPage
+  const indexOfFirstImage = indexOfLastImage - imagesPerPage; // Following same example: indexOfFirstImage = indexOfLastPage – imagesPerPage
+  // Setting the current displayed images
+  useEffect(() => {
+    setCurrentImages(filteredImages.slice(indexOfFirstImage, indexOfLastImage));
+  }, [filteredImages, indexOfFirstImage, indexOfLastImage]);
+
+  // Images to be displayed on the current page. slice(96, 102) will return images from index 96 to 101
   const nPages = Math.ceil(filteredImages.length / imagesPerPage);
 
   // Calling the delete action with the img´s ID
@@ -106,6 +115,20 @@ const MyFavs = () => {
     dispatch(editFavDescription({ id: id, description: editedDescription }));
   };
 
+  const addTag = (id, text) => {
+    dispatch(
+      addFavTag({
+        id: id,
+        title: text,
+        key: Math.floor(Math.random() * 100000),
+      })
+    );
+  };
+
+  const deleteTag = (id, key) => {
+    dispatch(deleteFavTag({ id: id, key: key }));
+  };
+
   const downloadFav = (url, id) => {
     saveAs(url, `${id}.jpeg`);
   };
@@ -123,6 +146,8 @@ const MyFavs = () => {
         <Modal
           modalImg={modalImg}
           saveEdit={saveEdit}
+          addTag={addTag}
+          deleteTag={deleteTag}
           downloadFav={downloadFav}
           closeModal={closeModal}
         />
