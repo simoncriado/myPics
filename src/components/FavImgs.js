@@ -4,6 +4,10 @@ import React, { useEffect, useState } from "react";
 // Components
 import { Loader } from "../components/Loader";
 
+// Toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // This component gets all favorite images, filters them and creates an image card for each one
 export const FavImgs = ({ openModal, deleteFavorite, filteredImages }) => {
   const [icons, setIcons] = useState(false);
@@ -12,8 +16,23 @@ export const FavImgs = ({ openModal, deleteFavorite, filteredImages }) => {
       setIcons(true);
     }, 1500);
   }, []);
+
+  const notify = () => toast("Pic deleted from your Favs!");
+
   return (
     <div className="gap-4 m-4 columns-1 ss:columns-2 lg:columns-3">
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {filteredImages ? (
         filteredImages.map((img) => {
           return (
@@ -50,6 +69,7 @@ export const FavImgs = ({ openModal, deleteFavorite, filteredImages }) => {
                     xmlns="http://www.w3.org/2000/svg"
                     onClick={() => {
                       deleteFavorite(img.id);
+                      notify();
                     }}
                   >
                     <path

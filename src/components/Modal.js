@@ -1,6 +1,10 @@
 // React
 import React, { useState } from "react";
 
+// Toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // Component to display information about the user´s selected image. Possibility to edit the description, download the image and close the modal
 export const Modal = ({
   modalImg,
@@ -35,6 +39,8 @@ export const Modal = ({
     e.target.value = "";
   };
 
+  const notify = () => toast("Pic downloaded successfully!");
+
   return (
     <div
       className="relative modal fade mx-4 ss:mx-auto my-20 w-9/10 ss:w-4/5 md:w-1/2 h-1/2 outline-none overflow-x-hidden overflow-y-auto bg-gray-700 rounded-xl"
@@ -43,6 +49,18 @@ export const Modal = ({
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="modal-dialog relative w-auto pointer-events-none">
         <div className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-gray-700 bg-clip-padding rounded-md outline-none text-current">
           <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-500 rounded-t-md">
@@ -206,6 +224,7 @@ export const Modal = ({
               xmlns="http://www.w3.org/2000/svg"
               onClick={() => {
                 downloadFav(modalImg.urlFull, modalImg.id);
+                notify();
               }}
             >
               <path

@@ -1,6 +1,10 @@
 //React
 import React, { useEffect, useState } from "react";
 
+// Toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // Component that gets a list of images and creates a card for each one. The list is coming after the user searches for images. If the user enters a search input I fetch based on that inupt.
 // If the user enters no input I fetch a random list of images.
 export const SearchedImg = ({ markAsFav, imagesList }) => {
@@ -10,8 +14,23 @@ export const SearchedImg = ({ markAsFav, imagesList }) => {
       setIcons(true);
     }, 1500);
   }, []);
+
+  const notify = () => toast("Pic added to favourites!");
+
   return (
     <div className="gap-4 m-4 columns-1 ss:columns-2 lg:columns-3">
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {imagesList.map((img) => {
         return (
           <div key={img.id} className="mb-4 rounded shadow-md relative">
@@ -25,6 +44,7 @@ export const SearchedImg = ({ markAsFav, imagesList }) => {
                 id={img.id}
                 onClick={() => {
                   markAsFav(img.id, img);
+                  notify();
                 }}
                 className="w-8 h-8 text-red-600 absolute bottom-2 right-2 text-lg hover:animate-bounce cursor-pointer"
                 fill="none"

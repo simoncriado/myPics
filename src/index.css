@@ -1,5 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
 
+:root {
+  --toastify-color-light: rgb(55 65 81);
+  --toastify-text-color-light: rgb(229 231 235);
+  --toastify-color-progress-light: #5957e9;
+}
+.Toastify__close-button > svg {
+  color: red;
+}
+.Toastify__close-button > svg:hover {
+  color: red;
+}
+
 @tailwind base;
 
 /* Chrome, Edge, and Safari */
